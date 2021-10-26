@@ -6,7 +6,7 @@
  * @Date: 2021-10-24 21:11:11
  * @platform: windows 10
  * @LastEditors: lhj
- * @LastEditTime: 2021-10-25 00:39:07
+ * @LastEditTime: 2021-10-27 00:59:43
 -->
 
 # django 的 WSGI 服务
@@ -30,13 +30,15 @@ WSGI 全称 Web Server Gateway Interface，从名称可理解为一个网关，�
 - Must be a `callable` with ``environ`` and `start_response` parameters.
 - Must call the ``start_response`` callback before sending the body.
 - Must return an `iterable` with pieces of the document body.
+![如图](../imgs/wsgi4.png)
+
 ```python
 
 def application(environ, start_response):
     body = b'Hello world!\n'
     status = '200 OK'
     headers = [('Content-type', 'text/plain')]
-    start_response(status, headers)
+    start_response(status, headers) # 必须
     return [body]
 
 
@@ -106,5 +108,15 @@ finally:
 |wsgi.multiprocess 	|False 	|True if server runs multiple processes
 |wsgi.run_once |	False |	True if the server expects this script to run only 
 
-## 启动一个 HTTP 服务
-DJANGO的 启动命令``runserver `` 其实就是启动一个HTTP服务。
+### start_response 参数
+在app 返回 body之前调用，必须携带`status`,`header`参数
+
+- status:即为HTTP status，比如404，403...
+- header:即为响应头，必须为list or tuple，比如
+```python
+response_body = json.dumps(data).encode('utf-8')
+
+headers = [('Content-Type', 'application/json'),
+           ('Content-Length', str(len(response_body))
+```
+
