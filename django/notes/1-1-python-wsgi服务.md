@@ -6,12 +6,12 @@
  * @Date: 2021-10-24 21:11:11
  * @platform: windows 10
  * @LastEditors: lhj
- * @LastEditTime: 2021-10-27 00:59:43
+ * @LastEditTime: 2021-10-27 09:49:23
 -->
 
 # django 的 WSGI 服务
 
-众所周知，所有的服务都是按照一定的协议对数据进行 pack,通过 HTTP/TPC 发送到指定 IP:PORT,那么 DJANGO 作为一个 WEB 框架，本身也是绑定监听一个端口，启动一个 HTTP 服务,并且遵循了 `WSGI`协议
+众所周知，所有的服务都是按照一定的协议对数据进行 pack,通过 HTTP/TCP 发送到指定 IP:PORT,那么 DJANGO 作为一个 WEB 框架，本身也是绑定监听一个端口，启动一个 HTTP 服务,并且遵循了 `WSGI`协议
 
 ## 何为 `WSGI` ?
 
