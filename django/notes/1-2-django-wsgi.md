@@ -6,13 +6,11 @@
  * @Date: 2021-10-27 00:57:34
  * @platform: windows 10
  * @LastEditors: lhj
- * @LastEditTime: 2021-10-29 01:10:59
+ * @LastEditTime: 2021-10-30 01:12:49
 -->
 
 ## 启动一个 WSGI 服务
-DJANGO的 启动命令``runserver `` 其实就是启动一个wsgi服务。具体的架构如下
-![django-wsgi](../imgs/django-wsgi.png)
-
+DJANGO的 启动命令``runserver `` 其实就是启动一个wsgi服务
 
 ## django 的 `manage.py`
 
@@ -359,6 +357,7 @@ runserver 是django定义的命令，也是启动一个wsgi协议的web服务。
         return get_internal_wsgi_application()
 
 ```
+- `handler = self.get_handler(*args, **options) `
 
 - RUN其实主要调用的是get_handler(*args, **options)，调用的是`get_internal_wsgi_application（）`方法
 ```PYTHON
@@ -389,7 +388,7 @@ def get_internal_wsgi_application():
             "Error importing module." % app_path
         ) from err
 ```
-其实就是导入`core.wsgi.application` ,就是return `core.wsgi.application`,查看`core.wsgi.application.py `，
+其实就是导入`core.wsgi.application` ,就是return `core.wsgi.application`,查看`core.wsgi.application `，
 ,其实就是返回`WSGIHandler()`,这里要注意`CORE`即为你的项目名称
 
 
@@ -416,5 +415,6 @@ def run(addr, port, wsgi_handler, ipv6=False, threading=False, server_cls=WSGISe
     httpd.serve_forever()
 
 ```
+
 很明显，就是实例化 WSGIServer(server_address, WSGIRequestHandler, ipv6=ipv6)，然后启动。
 这就完成了一个 WSGI服务的启动
